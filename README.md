@@ -12,6 +12,8 @@ echo "1.1.1.1" | python3 traceroute.py --queries 3 --max_steps 30 --threads 1 --
 Currently, only Van Jacobson's (Modern) traceroute is supported.
 If more than one thread is configured, the script will run traceroutes in parallel.
 
+Every argument is optional, the defaults are displayed in the command above.
+
 ### Geolocation
 
 A python script to geolocate IP addresses using [MaxMinds City](https://dev.maxmind.com/geoip/docs/databases/city-and-country/) database.
