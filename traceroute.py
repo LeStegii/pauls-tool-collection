@@ -131,9 +131,9 @@ class Protocol(Enum):
 
 
 # Inspired by jc (MIT licensed under https://github.com/kellyjonbrazil/jc/blob/master/LICENSE.md)
-REGEX_NAME_AND_IP = re.compile(r'(\S+)\s+\((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|[0-9a-fA-F:]+)\)+')
-REGEX_HOP = re.compile(r'^\s*(\d+)?\s+(.+)$')
-REGEX_RTT_AND_FLAGS = re.compile(r'(\d+(?:\.?\d+)?)\s+ms\s*(!\S*)?')
+REGEX_NAME_AND_IP = re.compile(r"(\S+)\s+\((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|[0-9a-fA-F:]+)\)+")
+REGEX_HOP = re.compile(r"^\s*(\d+)?\s+(.+)$")
+REGEX_RTT_AND_FLAGS = re.compile(r"(\d+(?:\.?\d+)?)\s+ms\s*(!\S*)?")
 
 
 def _traceroute(target: str, queries: int, max_steps: int, protocol: Protocol) -> Optional[str]:
@@ -225,12 +225,12 @@ def traceroute(target: str, queries: int = 3, max_steps: int = 30, protocol: Pro
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description='Traceroute options')
+    parser = argparse.ArgumentParser(description="Traceroute options")
 
-    parser.add_argument('--queries', type=int, default=3, help='Number of queries per hop (default: 3)')
-    parser.add_argument('--max-steps', type=int, default=30, help='Maximum number of hops (default: 30)')
-    parser.add_argument('--protocol', type=lambda p: Protocol[p] if p in Protocol.__members__ else Protocol.TCP, default=Protocol.TCP, choices=list(Protocol), help='Protocol to use for traceroute (TCP, UDP, ICMP; default: TCP)')
-    parser.add_argument('--threads', type=int, default=1, help='Number of concurrent threads (default: 1)')
+    parser.add_argument("--queries", type=int, default=3, help="Number of queries per hop (default: 3)")
+    parser.add_argument("--max-steps", type=int, default=30, help="Maximum number of hops (default: 30)")
+    parser.add_argument("--protocol", type=lambda p: Protocol[p] if p in Protocol.__members__ else Protocol.TCP, default=Protocol.TCP, choices=list(Protocol), help="Protocol to use for traceroute (TCP, UDP, ICMP; default: TCP)")
+    parser.add_argument("--threads", type=int, default=1, help="Number of concurrent threads (default: 1)")
 
     args = parser.parse_args()
 
@@ -243,7 +243,7 @@ if __name__ == "__main__":
             for future in as_completed(futures):
                 try:
                     result = future.result()
-                    print(json.dumps(result.to_dict(), separators=(',', ':')))
+                    print(json.dumps(result.to_dict(), separators=(",", ":")))
                 except Exception as e:
                     print("Error:", str(e), file=sys.stderr)
     else:
@@ -254,6 +254,6 @@ if __name__ == "__main__":
 
             try:
                 result = traceroute(target, queries=args.queries, max_steps=args.max_steps, protocol=args.protocol)
-                print(json.dumps(result.to_dict(), separators=(',', ':')))
+                print(json.dumps(result.to_dict(), separators=(",", ":")))
             except Exception as e:
                 print("Error:", str(e), file=sys.stderr)
